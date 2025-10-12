@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Listing</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f7f7f7; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { color: #3a7ca5; text-align: center; margin-bottom: 2rem; }
+        .controls { display: flex; justify-content: space-between; background: #e9e9ee; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+        .controls select, .controls label { margin: 0 10px; font-size: 1rem; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .product-card { background: white; border: 1px solid #ddd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .product-card h3 { color: #205072; margin-top: 0; }
+        .price { font-weight: bold; color: #009688; font-size: 1.2rem; }
+        .rating { color: gold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Product Listing Page</h1>
+        <div class="controls">
+            <div>
+                <label for="categoryFilter">Filter by Category:</label>
+                <select id="categoryFilter" onchange="applyFilters()">
+                    <option value="all">All Categories</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Books">Books</option>
+                    <option value="Apparel">Apparel</option>
+                </select>
+            </div>
+            <div>
+                <label for="sortOrder">Sort by:</label>
+                <select id="sortOrder" onchange="applyFilters()">
+                    <option value="rating">Rating (High to Low)</option>
+                    <option value="price-low">Price (Low to High)</option>
+                    <option value="price-high">Price (High to Low)</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="productGrid" class="product-grid">
+            </div>
+    </div>
+
+    <script>
+        const products = [
+            { id: 1, name: "Wireless Headphones", category: "Electronics", price: 59.99, rating: 4.5 },
+            { id: 2, name: "JavaScript Book", category: "Books", price: 35.00, rating: 4.8 },
+            { id: 3, name: "Travel Backpack", category: "Apparel", price: 89.50, rating: 4.2 },
+            { id: 4, name: "Smart Watch", category: "Electronics", price: 199.99, rating: 4.1 },
+            { id: 5, name: "Fantasy Novel", category: "Books", price: 15.75, rating: 5.0 },
+            { id: 6, name: "T-Shirt", category: "Apparel", price: 25.00, rating: 3.9 }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts(products);
+        });
+
+        function renderProducts(productArray) {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+
+            if (productArray.length === 0) {
+                grid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center;">No products match your criteria.</p>';
+                return;
+            }
+
+            productArray.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <h3>${product.name}</h3>
+                    <p>Category: ${product.category}</p>
+                    <p class="price">$${product.price.toFixed(2)}</p>
+                    <p>Rating: <span class="rating">${'★'.repeat(Math.round(product.rating))}</span> (${product.rating})</p>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function applyFilters() {
+            let filteredProducts = [...products];
+            const category = document.getElementById('categoryFilter').value;
+            if (category !== 'all') {
+                filteredProducts = filteredProducts.filter(p => p.category === category);
+            }
+            const sortOrder = document.getElementById('sortOrder').value;
+            if (sortOrder === 'rating') {
+                filteredProducts.sort((a, b) => b.rating - a.rating);
+            } else if (sortOrder === 'price-low') {
+                filteredProducts.sort((a, b) => a.price - b.price);
+            } else if (sortOrder === 'price-high') {
+                filteredProducts.sort((a, b) => b.price - a.price);
+            }
+            renderProducts(filteredProducts);
+        }
+    </script>
+</body>
+</html>

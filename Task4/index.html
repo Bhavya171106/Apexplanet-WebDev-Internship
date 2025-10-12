@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">UPPALA BHAVYA SRI</div>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="about" class="page-section">
+            <h1>About Me</h1>
+            <p>Hello! I am UPPALA BHAVYA SRI currently pursuing my Btech 3rd year degree.I am now an intern at ApexPlanet, where I want to showcase my skills in web development(HTML,CSS,JS). 
+                This portfolio showcases my skills in HTML, CSS, and JavaScript. This portfolio showcases these abilities through two projects: <em>To-Do list </em>and <em>product listing page.</em> 
+            Working on these projects enhanced my technical skills and allowed me to gain practical experience.<br><br>
+            The To-Do List project allows users to efficiently manage their tasks—adding, viewing, and deleting tasks as they are completed. This helps users stay organized and prevents them from forgetting their daily responsibilities.<br><br>
+            And coming to product-listing page.It shows you all the products and you can filter them as your choice.And it also shows you the rating for that product which have been given by the customers.<br>
+            This is how my two projects help you avoid forgetting the daily tasks you need to do and help you filter out the products you actually want to buy.<br><br>
+            I always want to keep learning, and I'm excited to jump into more projects that will help me get even better at this stuff!</p>
+        </section>
+
+        <section id="projects" class="page-section">
+            <h1>My Interactive Projects</h1>
+            <div class="project-grid">
+                
+                <div class="project-card" data-url="todo.html">
+                    <h3>1. To-Do List/Note-Taking App</h3>
+                    <p>This note-taking app helps you to note down your pending tasks and when your done with them you can delete it and soon as you complete.You can add as many tasks you want to.</p>
+                    <button class="project-button">Click to open</button>
+                </div>
+                
+                <div class="project-card" data-url="products.html">
+                    <h3>2. Product Listing Page</h3>
+                    <p>You can search for the products what you want to like Gadgets,Books etc.You can also filter them according to your price.We can also provide the rating for that product which customers can only give.</p>
+                    <button class="project-button">Click to open</button>
+                </div>
+                
+            </div>
+        </section>
+
+        <section id="contact" class="page-section">
+            <h1>Get In Touch</h1>
+            <form id="contact-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 UPPALA BHAVYA SRI | Built with HTML, CSS, and JavaScript</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do App</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f0f8ff; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { color: #205072; text-align: center; margin-bottom: 1.5rem; }
+        input[type="text"] { width: 75%; padding: 10px; margin-right: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        button { padding: 10px 15px; background-color: #009688; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background-color: #00796b; }
+        #taskList { list-style: none; padding: 0; margin-top: 20px; }
+        #taskList li { background: #e9e9ee; padding: 10px; margin-bottom: 8px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; }
+        .delete-btn { background: #e74c3c; padding: 5px 10px; font-size: 0.8rem; }
+        .delete-btn:hover { background: #c0392b; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <em>You can add your tasks here.....</em>
+        <div id="input-area">
+            <input type="text" id="taskInput" placeholder="Add a new task or note...">
+            <button onclick="addTask()">Add Task</button>
+        </div>
+        <ul id="taskList">
+            </ul>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', loadTasks);
+
+        function getTasks() {
+            const tasks = localStorage.getItem('tasks');
+            return tasks ? JSON.parse(tasks) : [];
+        }
+
+        function saveTasks(tasks) {
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+
+        function loadTasks() {
+            const tasks = getTasks();
+            const taskList = document.getElementById('taskList');
+            taskList.innerHTML = '';
+
+            tasks.forEach(taskText => {
+                createTaskElement(taskText);
+            });
+        }
+
+        function createTaskElement(text) {
+            const taskList = document.getElementById('taskList');
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <span>${text}</span>
+                <button class="delete-btn" onclick="deleteTask(this)">Delete</button>
+            `;
+            taskList.appendChild(li);
+        }
+
+        function addTask() {
+            const taskInput = document.getElementById('taskInput');
+            const taskText = taskInput.value.trim();
+
+            if (taskText === "") {
+                alert("Please enter a task or note.");
+                return;
+            }
+
+            const tasks = getTasks();
+            tasks.push(taskText);
+            saveTasks(tasks);
+
+            createTaskElement(taskText);
+            taskInput.value = '';
+        }
+
+        function deleteTask(button) {
+           
+            const li = button.parentNode;
+            const taskText = li.querySelector('span').textContent;
+            let tasks = getTasks();
+            tasks = tasks.filter(task => task !== taskText);
+            saveTasks(tasks);
+            li.remove();
+        }
+    </script>
+</body>
+</html>
